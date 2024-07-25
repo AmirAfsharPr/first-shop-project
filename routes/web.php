@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.home');
+});
+
+Route::get('/adminpanel', function (){
+    return view('admin.home');
 });
