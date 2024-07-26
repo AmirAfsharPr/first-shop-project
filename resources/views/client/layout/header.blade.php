@@ -314,59 +314,7 @@
                 </div>
             </div>
         </div>
-        <div class="header-bottom d-lg-show">
-            <div class="container">
-                <div class="header-left">
-                    <nav class="main-nav">
-                        <ul class="menu">
-                            <li class="active">
-                                <a href="index.php">خانه</a>
-                            </li>
-                            <li>
-                                <a href="shop.php">محصولات</a>
-                                <div class="megamenu">
-                                    <div class="row">
-                                        <div class="col-6 col-sm-4 col-md-3">
-
-                                            <h4 class="menu-title">-</h4>
-                                            <ul>
-
-                                                <ul>
-                                                    <li><a href="category.php">-</a></li>
-
-                                                    <li><a href="category.php">-</a></li>
-
-                                                </ul>
-
-                                            </ul>
-                                        </div>
-
-                                            <!--<div class="col-6 col-sm-4 col-md-3 menu-banner menu-banner2 banner banner-fixed">
-                                        <figure>
-                                            <img src="images/menu/banner-2.jpg" alt="Menu banner" width="221" height="330" />
-                                        </figure>
-                                        <div class="banner-content x-50 text-center">
-                                            <h3 class="banner-title text-white text-uppercase">Sunglasses</h3>
-                                            <h4 class="banner-subtitle font-weight-bold text-white mb-0">$23.00
-                                                -
-                                                $120.00</h4>
-                                        </div>
-                                    </div>-->
-
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="about-us.php">درباره ما</a>
-                            </li>
-                            <li>
-                                <a href="contact-us.php">ارتباط با ما</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        @include('client.layout.menu')
     </header>
 
 
