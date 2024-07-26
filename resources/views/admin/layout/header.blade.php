@@ -188,8 +188,8 @@
                     <li><a class="sidebar-header" href="index.php"><i data-feather="home"></i><span>داشبورد</span></a></li>
                     <li><a class="sidebar-header" href="javascript:void(0)"><i data-feather="box"></i> <span>فروشگاه</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="category.php"><i class="fa fa-circle"></i>دسته بندی محصولات</a></li>
-                            <li><a href="add-category.php"><i class="fa fa-circle"></i>اضافه کردن دسته بندی جدید</a></li>
+                            <li><a href="{{route('categories.index')}}"><i class="fa fa-circle"></i>دسته بندی محصولات</a></li>
+                            <li><a href="{{route('categories.create')}}"><i class="fa fa-circle"></i>اضافه کردن دسته بندی جدید</a></li>
                             <li><a href="product-list.php"><i class="fa fa-circle"></i>لیست محصولات</a></li>
                             <li><a href="add-product.php"><i class="fa fa-circle"></i>اضافه کردن محصول جدید</a></li>
                         </ul>
