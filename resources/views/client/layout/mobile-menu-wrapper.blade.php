@@ -262,7 +262,6 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="https://d-themes.com/buynow/riodehtml">Buy Riode!</a></li>
         </ul>
 
     </div>

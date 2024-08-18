@@ -34,9 +34,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>دسته بندی محصولات</h5>
-                            <p class="col-12 alert alert-success bg-success mt-4 b-r-4">افزودن دستبه یندی با موفقیت انجام شد.</p>
-
-                            <p class="col-12 alert alert-success bg-success mt-4 b-r-4"> حذف دسته یندی با موفقیت انجام شد.</p>
+                            @include('admin.layout.errors')
 
                         </div>
                         <div class="card-body">

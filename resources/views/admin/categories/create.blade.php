@@ -34,7 +34,8 @@
                     <div class="card tab2-card">
                         <div class="card-header">
                             <h5> افزودن دسته بندی جدید</h5>
-                            <p class="col-12 alert alert-danger bg-danger mt-4 b-r-4">این دسته بندی از قبل وجود دارد </p>
+                            @include('admin.layout.errors')
+
                         </div>
                         <div class="card-body">
 
@@ -42,10 +43,10 @@
                                 <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
                                     <form  class="needs-validation user-add" novalidate="" method="post" action="{{route('categories.store')}}">
                                         @csrf
-                                        <h4>اطلاعات کاربر</h4>
+                                        <h4>اطلاعات دسته بندی</h4>
                                         <div class="form-group row">
                                             <div class="col-xl-3 col-md-4">
-                                                <label for="validationCustom0" ><span>*</span> عنوان دسته </label>
+                                                <label for="validationCustom0" > عنوان دسته <span>*</span></label>
                                             </div>
                                             <div class="col-xl-8 col-md-7">
                                                 <input class="form-control " id="validationCustom0" type="text" required=""  name="title">
@@ -63,7 +64,7 @@
 
                                         <div class="form-group row">
                                             <div class="col-xl-3 col-md-4">
-                                                <label for="validationCustom2" ><span>*</span>والد دسته</label>
+                                                <label for="validationCustom2" >والد دسته <span>*</span></label>
                                             </div>
                                             <div class="col-xl-8 col-md-7">
                                                 <select class="form-control" id="validationcustom2" name="category_id">
@@ -73,6 +74,23 @@
                                                     @endforeach
 
                                                 </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xl-3 col-md-4">
+                                                <label for="validationCustom2" ><span>*</span>انتخاب گروه مشخصات : </label>
+                                            </div>
+                                            <div class="col-xl-9 col-md-8">
+
+                                                @foreach($properties as $property)
+                                                    <label class="col-xl-5 col-md-4">
+                                                        <input type="checkbox" name="properties[]" value="{{$property->id}}">
+                                                        {{$property->title}}
+                                                    </label>
+
+                                                @endforeach
                                             </div>
 
                                         </div>

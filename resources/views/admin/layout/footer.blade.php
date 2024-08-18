@@ -80,6 +80,7 @@
 <!--script admin-->
 <script src="/admin/js/admin-script.js"></script>
 
+
 <script>
     $(document).ready(function (){
 
@@ -89,5 +90,7 @@
     });
 
 </script>
+
+@yield('scripts')
 </body>
 </html>

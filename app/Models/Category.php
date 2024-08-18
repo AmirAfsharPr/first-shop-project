@@ -20,4 +20,14 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'category_id');
     }
+
+    public function propertyGroups()
+    {
+        return $this->belongsToMany(PropertyGroup::class, 'category_property_group', 'category_id', 'property_group_id');
+    }
+
+    public function hasPropertyGroup(PropertyGroup $property)
+    {
+        return $this->propertyGroups()->where('property_Group_id',$property->id)->exists();
+    }
 }

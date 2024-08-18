@@ -39,6 +39,8 @@
 
     <!-- App css-->
     <link rel="stylesheet" type="text/css" href="/admin/css/admin.css">
+
+    @yield('links')
 </head>
 
 <body class="rtl">
@@ -190,8 +192,26 @@
                         <ul class="sidebar-submenu">
                             <li><a href="{{route('categories.index')}}"><i class="fa fa-circle"></i>دسته بندی محصولات</a></li>
                             <li><a href="{{route('categories.create')}}"><i class="fa fa-circle"></i>اضافه کردن دسته بندی جدید</a></li>
-                            <li><a href="product-list.php"><i class="fa fa-circle"></i>لیست محصولات</a></li>
-                            <li><a href="add-product.php"><i class="fa fa-circle"></i>اضافه کردن محصول جدید</a></li>
+                            <li><a href="{{route('brands.index')}}"><i class="fa fa-circle"></i>برند ها</a></li>
+                            <li><a href="{{route('brands.create')}}"><i class="fa fa-circle"></i>اضافه کردن برند جدید</a></li>
+                            <li><a href="{{route('propertyGroups.index')}}"><i class="fa fa-circle"></i>گروه ویژگی ها</a></li>
+                            <li><a href="{{route('propertyGroups.create')}}"><i class="fa fa-circle"></i>اضافه کردن گروه ویژگی جدید</a></li>
+                            <li><a href="{{route('products.index')}}"><i class="fa fa-circle"></i>لیست محصولات</a></li>
+                            <li><a href="{{route('products.create')}}"><i class="fa fa-circle"></i>اضافه کردن محصول جدید</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="sidebar-header" href="javascript:void(0)"><i data-feather="box"></i> <span>ویژگی محصولات</span><i class="fa fa-angle-right pull-right"></i></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{route('propertyGroups.index')}}"><i class="fa fa-circle"></i>گروه ویژگی ها</a></li>
+                            <li><a href="{{route('propertyGroups.create')}}"><i class="fa fa-circle"></i>اضافه کردن گروه ویژگی جدید</a></li>
+                            <li><a href="{{route('properties.index')}}"><i class="fa fa-circle"></i>ویژگی ها</a></li>
+                            <li><a href="{{route('properties.create')}}"><i class="fa fa-circle"></i>اضافه کردن ویژگی جدید</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="sidebar-header" href=""><i data-feather="users"></i><span>نقش ها</span><i class="fa fa-angle-right pull-right"></i></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{route('roles.index')}}"><i class="fa fa-circle"></i>لیست نقش ها</a></li>
+                            <li><a href="{{route('roles.create')}}"><i class="fa fa-circle"></i>ایجاد نقش جدید</a></li>
                         </ul>
                     </li>
                     <li><a class="sidebar-header" href=""><i data-feather="dollar-sign"></i><span>لیست سفارشات</span><i class="fa fa-angle-right pull-right"></i></a>
@@ -204,8 +224,7 @@
                     </li>
                     <li><a class="sidebar-header" href=""><i data-feather="user-plus"></i><span>کاربران</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="user-list.php"><i class="fa fa-circle"></i>لیست کاربران</a></li>
-                            <li><a href="create-user.php"><i class="fa fa-circle"></i>ایجاد کاربر</a></li>
+                            <li><a href="{{route('users.index')}}"><i class="fa fa-circle"></i>لیست کاربران</a></li>
                         </ul>
                     </li>
                     <li><a class="sidebar-header" href=""><i data-feather="bar-chart"></i><span>نظرات</span><i class="fa fa-angle-right pull-right"></i></a>
@@ -227,7 +246,7 @@
                         </ul>
                     </li>
                     <li><a class="sidebar-header" href="../../index.php"><i data-feather="log-in"></i><span>سایت فروشگاه</span></a>
-                    <li><a class="sidebar-header" href="includes/logout.php"><i data-feather="log-in"></i><span>خروج</span></a>
+                    <li><a class="sidebar-header" href="{{route('client.logout')}}"><i data-feather="log-in"></i><span>خروج</span></a>
                     </li>
                 </ul>
             </div>
