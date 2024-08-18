@@ -790,7 +790,7 @@ Off</span>
             <section class="mt-2 pb-6 pt-10 pb-md-10 appear-animate" data-animation-options="{
                     'delay': '.3s'
                 }">
-                <h2 class="title d-none">Our Brand</h2>
+                <h2 class="title d-none">برند های ما</h2>
                 <div class="container">
                     <div dir="ltr" class="owl-carousel owl-theme row brand-carousel cols-xl-6 cols-lg-5 cols-md-4 cols-sm-3 cols-2" data-owl-options="{
                             'nav': false,
@@ -816,18 +816,11 @@ Off</span>
                                 }
                             }
                         }">
-                        <figure><img src="/client/images/brands/1.png" alt="brand" width="180" height="100" />
-                        </figure>
-                        <figure><img src="/client/images/brands/2.png" alt="brand" width="180" height="100" />
-                        </figure>
-                        <figure><img src="/client/images/brands/3.png" alt="brand" width="180" height="100" />
-                        </figure>
-                        <figure><img src="/client/images/brands/4.png" alt="brand" width="180" height="100" />
-                        </figure>
-                        <figure><img src="/client/images/brands/5.png" alt="brand" width="180" height="100" />
-                        </figure>
-                        <figure><img src="/client/images/brands/6.png" alt="brand" width="180" height="100" />
-                        </figure>
+                        @foreach($brands as $brand)
+                            <figure><img src="{{str_replace('public', '/storage', $brand->image)}}" alt="{{$brand->name}}" width="180" height="100" />
+                            </figure>
+                        @endforeach
+
                     </div>
                 </div>
             </section>
@@ -1174,5 +1167,55 @@ Off</span>
 
 @endsection
 
+
+@section('scripts')
+
+    <script>
+
+        $(document).ready(function (){
+
+            $('#register_btn').click(function (e){
+
+                e.preventDefault();
+
+                var name = $('#register-name').val();
+                var email = $('#register-email').val();
+                var pass1 = $('#register-password1').val();
+                var pass2 = $('#register-password2').val();
+
+                if ( name != '' && email != '' && pass1 != ''){
+
+                    if ($('#register-agree').is(':checked')) {
+
+                        if (pass1 == pass2){
+                            $('#register-form').submit();
+
+                        }else{
+                            alert('رمز ها یکسان نیستند');
+                        }
+
+                    }else{
+                        alert('لطفا شرایط و قوانین را مطالعه کرده و تیک بزنید');
+                    }
+
+
+                }else{
+                    alert('فیلد های ستاره دار حتما باید پر شوند')
+                }
+
+
+            });
+
+            @if(isset($login))
+
+            $(".login-dropdown").addClass("opened");
+
+            @endif
+
+        });
+
+    </script>
+
+@endsection
 
 

@@ -35,9 +35,7 @@
                     <div class="card tab2-card">
                         <div class="card-header">
                             <h5> ویرایش دسته بندی </h5>
-
-                            <p class="col-12 alert alert-success bg-success mt-4 b-r-4">ویرایش دسته بندی با موفقیت انجام شد.</p>
-                            <a href="category.php" class="btn btn-outline-primary " style="margin-right: 79%;">برگرد به لیست دسته بندی ها</a>
+                            @include('admin.layout.errors')
 
                         </div>
                         <div class="card-body">
@@ -83,6 +81,27 @@
                                                     @endforeach
 
                                                 </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-xl-3 col-md-4">
+                                                <label for="validationCustom2" ><span>*</span>انتخاب گروه مشخصات : </label>
+                                            </div>
+                                            <div class="col-xl-9 col-md-8">
+
+                                                @foreach($properties as $property)
+                                                    <label class="col-xl-5 col-md-4">
+                                                        <input
+                                                            @if($category->hasPropertyGroup($property))
+                                                                checked
+                                                            @endif
+                                                            type="checkbox" name="properties[]" value="{{$property->id}}">
+                                                        {{$property->title}}
+                                                    </label>
+
+                                                @endforeach
                                             </div>
 
                                         </div>

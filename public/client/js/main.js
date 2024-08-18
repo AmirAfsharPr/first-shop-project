@@ -349,7 +349,7 @@ window.Riode = {};
     /**
          * @function doLoading
          * Show loading overlay
-         * @param {string|jQuery} selector 
+         * @param {string|jQuery} selector
          * @param {string} type This can be omitted.
          */
     Riode.doLoading = function ( selector, type ) {
@@ -370,7 +370,7 @@ window.Riode = {};
     /**
      * @function endLoading
      * Hide loading overlay
-     * @param {string|jQuery} selector 
+     * @param {string|jQuery} selector
      */
     Riode.endLoading = function ( selector ) {
         Riode.$( selector ).find( '.d-loading' ).remove();
@@ -379,7 +379,7 @@ window.Riode = {};
 
     /**
      * @function appear
-     * 
+     *
      * @param {HTMLElement} el
      * @param {function} fn
      * @param {object} options
@@ -650,7 +650,7 @@ window.Riode = {};
 
     /**
      * @function initShowVendorSearch
-     * 
+     *
      * @param {string} selector
      */
     Riode.initShowVendorSearch = function ( selector ) {
@@ -1433,9 +1433,9 @@ window.Riode = {};
 
     /**
      * Scroll To
-     * 
-     * @param {string} arg 
-     * @param {number} duration 
+     *
+     * @param {string} arg
+     * @param {number} duration
      */
     Riode.scrollTo = function ( arg, duration ) {
         var offset = 0;
@@ -2213,7 +2213,7 @@ window.Riode = {};
                 e.preventDefault();
             } );
         }
-        function initWishlistAction( e ) {
+        /*function initWishlistAction( e ) {
             var $this = $( e.currentTarget );
             if ( $this.hasClass( 'added' ) ) {
                 return;
@@ -2229,7 +2229,7 @@ window.Riode = {};
                     .attr( 'title', 'Browse wishlist' )
                     .attr( 'href', 'wishlist.html' );
             }, 500 );
-        }
+        }*/
         function reviewOpenToggler() {
             Riode.$body.on( 'click', '.submit-review-toggle', function ( e ) {
                 $( '.review-form-section' ).toggleClass( 'opened' );
@@ -2449,7 +2449,7 @@ window.Riode = {};
         var onTranslated = function ( e ) {
             $( window ).trigger( 'appear.check' );
 
-            // Video Play   
+            // Video Play
             var $el = $( e.currentTarget ),
                 $activeVideos = $el.find( '.owl-item.active video' );
 
@@ -3118,7 +3118,7 @@ window.Riode = {};
 
     /**
      * @function floatSVG
-     * @param {string|jQuery} selector 
+     * @param {string|jQuery} selector
      * @param {object} options
      */
     Riode.floatSVG = ( function () {

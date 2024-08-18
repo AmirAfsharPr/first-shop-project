@@ -34,6 +34,24 @@
     <link rel="stylesheet" type="text/css" href="/client/css/borderless.css">
 
     <link rel="stylesheet" type="text/css" href="/client/rtl/css/demo1-rtl.min.css">
+    <style>
+        .likes_count{
+            position: absolute;
+            left: -6px;
+            top: 4px;
+            width: 1.5rem;
+            height: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #26c;
+            color: #fff;
+            z-index: 1;
+
+        }
+    </style>
+    @yield('links')
 </head>
 <body class="home">
 <div class="page-wrapper">
@@ -48,76 +66,23 @@
 
                     <span class="divider"></span>
                     <a href="contact-us.html" class="contact d-lg-show"><i class="d-icon-map"></i>تماس با ما</a>
-                    <a href="#signin" class="login-toggle link-to-tab d-md-show"><i class="d-icon-user"></i>ثبت نام</a>
-                    <span class="delimiter">/</span>
-                    <a href="#register" class="register-toggle link-to-tab d-md-show ml-0">ورود</a>
+                    @if(auth()->check())
+                        <a href="{{route('client.profile')}}" class="contact d-lg-show"><i class="d-icon-user"></i> {{auth()->user()->name}} عزیز. خوش آمدید | حساب کاربری</a>
+                    @else
+                        <a href="#signin" class="login-toggle link-to-tab d-md-show"><i class="d-icon-user"></i>ثبت نام</a>
+                        <span class="delimiter">/</span>
+                        <a href="#register" class="register-toggle link-to-tab d-md-show ml-0">ورود</a>
+                    @endif
 
-                    <a href="profile.php" class="contact d-lg-show"><i class="d-icon-user"></i> عزیز. خوش آمدید | حساب کاربری</a>
+
+
 
 
                     <div class="dropdown login-dropdown off-canvas">
                         <div class="canvas-overlay"></div>
 
                         <div class="dropdown-box scrollable">
-                            <div class="login-popup">
-                                <div class="form-box">
-                                    <div class="tab tab-nav-simple tab-nav-boxed form-tab">
-                                        <ul class="nav nav-tabs nav-fill align-items-center border-no justify-content-center mb-5" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active border-no lh-1 ls-normal" href="#signin">ورود</a>
-                                            </li>
-                                            <li class="delimiter">  &  </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link border-no lh-1 ls-normal" href="#register">ثبت نام</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="signin">
-                                                <form method="post" action="includes/loginprocess.php">
-                                                    <div class="form-group mb-3">
-                                                        <input type="text" class="form-control" id="singin-email" name="email_user" placeholder="ایمیل ... *" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" id="singin-password" name="password_user" placeholder="رمز عبور ... *" required>
-                                                    </div>
-                                                    <div class="form-footer">
-                                                        <div class="form-checkbox">
-                                                            <input type="checkbox" class="custom-checkbox" id="signin-remember" name="signin-remember">
-                                                            <label class="form-control-label" for="signin-remember">مرا بخاطر بسپار</label>
-                                                        </div>
-                                                        <a href="#" class="lost-link">فراموشی رمز عبور</a>
-                                                    </div>
-                                                    <button class="btn btn-dark btn-block btn-rounded" type="submit">ورود</button>
-                                                </form>
-                                            </div>
-                                            <div class="tab-pane" id="register">
-                                                <form id="register-form" method="post" action="includes/registerprocess.php">
-                                                    <div class="form-group mb-3">
-                                                        <input type="text" class="form-control" id="register-name" name="name_user" placeholder="نام خود را وارد کنید ... *" required>
-                                                    </div>
-                                                    <div class="form-group mb-3">
-                                                        <input type="email" class="form-control" id="register-email" name="email_user" placeholder="ایمیل خود را وارد کنید ... *" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" id="register-password1" name="password_user" placeholder="رمز عبور خود را وارد کنید ... *" required minlength="6">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="password" class="form-control" id="register-password2" name="password_user" placeholder="تکرار رمز عبور خود را وارد کنید ... *" required>
-                                                    </div>
-                                                    <div class="form-footer">
-                                                        <div class="form-checkbox">
-                                                            <input type="checkbox" class="custom-checkbox" id="register-agree" name="register-agree" required>
-                                                            <label class="form-control-label" for="register-agree">شرایط و قوانین را پذیرفته ام</label>
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn btn-dark btn-block btn-rounded" type="submit" id="register_btn" name="register">ثبت نام</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button title="Close (Esc)" type="button" class="mfp-close"><span>×</span></button>
-                            </div>
+                            @include('client.layout.login')
                         </div>
 
                     </div>
@@ -158,8 +123,10 @@
                     </a>
                     <span class="divider"></span>
                     <div class="dropdown wishlist wishlist-dropdown off-canvas">
-                        <a href="wishlist.html" class="wishlist-toggle">
+
+                        <a href="#" class="wishlist-toggle">
                             <i class="d-icon-heart"></i>
+                            <span id="likes_count" class="likes_count">{{auth()->user()->likes()->count()}}</span>
 
                         </a>
                         <div class="canvas-overlay"></div>
@@ -169,63 +136,46 @@
                                 <h4 class="canvas-title">پسندیده شده</h4>
                                 <a href="#" class="btn btn-dark btn-link btn-icon-right btn-close">بستن<i class="d-icon-arrow-left"></i><span class="sr-only">پسندیده شده ها</span></a>
                             </div>
-                            <div class="col-12 p-4 text-center height-x3 mt-5">برای مشاهده لیست مورد علاقه ها لطفا ابتدا وارد شوید</div>
 
+
+                            @auth
                             <div class="products scrollable">
-                                <div class="product product-wishlist">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/client/images/wishlist/product-1.jpg" width="100" height="100" alt="product" />
-                                        </a>
-                                        <button class="btn btn-link btn-close">
-                                            <i class="fas fa-times"></i><span class="sr-only">بستن</span>
-                                        </button>
-                                    </figure>
-                                    <div class="product-detail">
-                                        <a href="product.html" class="product-name">کوله مشکی دخترانه</a>
-                                        <div class="price-box">
-                                            <span class="product-price">84000 تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                @if(auth()->user()->likes()->count() == 0)
+                                    <div class="col-12 p-4 text-center height-x3 mt-5">محصولی برای نمایش وجود ندارد</div>
+                                @else
 
-                                <div class="product product-wishlist">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/client/images/wishlist/product-2.jpg" width="100" height="100" alt="product" />
-                                        </a>
-                                        <button class="btn btn-link btn-close">
-                                            <i class="fas fa-times"></i><span class="sr-only">بستن</span>
-                                        </button>
-                                    </figure>
-                                    <div class="product-detail">
-                                        <a href="product.html" class="product-name">شال آبی ابریشمی
-                                        </a>
-                                        <div class="price-box">
-                                            <span class="product-price">65000 تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                    @foreach(auth()->user()->likes as $product)
+                                        <div class="product product-wishlist">
+                                            <figure class="product-media">
+                                                <a href="{{route('client.products.show',$product)}}">
+                                                    <img src="{{str_replace('public','/storage',$product->image)}}" width="100" height="100" alt="{{$product->name}}" />
+                                                </a>
+                                                <form action="{{route('client.likes.destroy',$product)}}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-link btn-close">
+                                                        <i class="fas fa-times"></i><span class="sr-only">بستن</span>
+                                                    </button>
+                                                </form>
 
-                                <div class="product product-wishlist">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/client/images/wishlist/product-3.jpg" width="100" height="100" alt="product" />
-                                        </a>
-                                        <button class="btn btn-link btn-close">
-                                            <i class="fas fa-times"></i><span class="sr-only">بستن</span>
-                                        </button>
-                                    </figure>
-                                    <div class="product-detail">
-                                        <a href="product.html" class="product-name">جین مشکی</a>
-                                        <div class="price-box">
-                                            <span class="product-price">120000 تومان</span>
+                                            </figure>
+                                            <div class="product-detail">
+                                                <a href="{{route('client.products.show',$product)}}" class="product-name">{{$product->name}}</a>
+                                                <div class="price-box">
+                                                    <span class="product-price">{{number_format($product->cost)}}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    @endforeach
+
+                                        <a href="{{route('client.likes.index')}}" class="btn btn-dark wishlist-btn mt-4"><span>برو به مورد علاقه ها</span></a>
+                                @endif
 
                             </div>
-                            <a href="wishlist.html" class="btn btn-dark wishlist-btn mt-4"><span>برو به مورد علاقه ها</span></a>
+
+                            @else
+                                <div class="col-12 p-4 text-center height-x3 mt-5">برای مشاهده لیست مورد علاقه ها لطفا ابتدا وارد شوید</div>
+                            @endauth
 
 
                         </div>
@@ -248,12 +198,13 @@
                         <div class="dropdown-box">
 
 
-                            <div class="col-12 p-4 text-center height-x3 mt-5 mb-5">برای مشاهده سبد خرید لطفا ابتدا وارد شوید</div>
+
 
                             <div class="canvas-header">
                                 <h4 class="canvas-title">سبد خرید</h4>
                                 <a href="#" class="btn btn-dark btn-link btn-icon-right btn-close">بستن<i class="d-icon-arrow-left"></i><span class="sr-only">سبد خرید</span></a>
                             </div>
+                            @auth
                             <div class="products scrollable">
                                 <div class="product product-cart">
                                     <figure class="product-media">
@@ -308,6 +259,9 @@
                                 <a href="shop.php" class="btn btn-dark"><span>برو به فروشگاه</span></a>
                             </div>
 
+                            @else
+                                <div class="col-12 p-4 text-center height-x3 mt-5 mb-5">برای مشاهده سبد خرید لطفا ابتدا وارد شوید</div>
+                            @endauth
                         </div>
 
                     </div>
