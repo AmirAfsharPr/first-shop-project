@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VerifyOtpRequest;
 use App\Mail\OtpMail;
+use App\Models\FeaturedCategory;
 use App\Models\Role;
+use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +18,9 @@ class RegisterController extends Controller
     public function create()
     {
         return view('client.home', [
-            'login' => 'login'
+            'login' => 'login',
+            'sliders' => Slider::all(),
+            'featuredCategory' => FeaturedCategory::getCategory()
         ]);
     }
 

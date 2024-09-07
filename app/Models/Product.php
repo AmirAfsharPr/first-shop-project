@@ -15,6 +15,11 @@ class Product extends Model
 
     protected $guarded = [];
 
+    protected $appends = [
+        'cost_with_discount',
+        'image_path',
+    ];
+
     public function brand()
     {
         return $this->belongsTo(Brand::class);
@@ -126,4 +131,10 @@ class Product extends Model
     {
         return $this->likes()->where('user_id', auth()->id())->exists();
     }
+
+    public function getImagePathAttribute()
+    {
+        return str_replace('public','/storage',$this->image);
+    }
+
 }

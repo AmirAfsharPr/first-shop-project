@@ -117,3 +117,8 @@ input[type=radio]~label:after {
     border: none;
     transition: padding 0.3s;
 }
+.like {
+    border-color: #26c;
+    color: #fff;
+    background-color: #26c;
+}

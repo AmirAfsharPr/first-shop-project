@@ -97,6 +97,7 @@ class CategoryController extends Controller
 
         $category->propertyGroups()->sync($request->get('properties'));
 
+
         return redirect(route('categories.index'));
     }
 
@@ -111,6 +112,7 @@ class CategoryController extends Controller
         $category->propertyGroups()->detach();
 
         $category->delete();
+
 
         return redirect(route('categories.index'));
     }

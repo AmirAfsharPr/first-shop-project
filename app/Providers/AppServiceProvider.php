@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\User;
+use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,5 +40,7 @@ class AppServiceProvider extends ServiceProvider
                 'brands' => Brand::all()
             ]);
         });
+
+        Category::observe(CategoryObserver::class);
     }
 }

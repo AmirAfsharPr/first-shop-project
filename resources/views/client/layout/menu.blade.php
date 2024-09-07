@@ -20,15 +20,15 @@
                                     <ul>
                                         @foreach($category->children as $childCategory)
                                         <ul>
-                                            <li><a class="font-weight-semi-bold" href="category.php">{{$childCategory->title}}</a></li>
+                                            <li><a class="font-weight-semi-bold" href="{{route('client.categories.show',$childCategory)}}">{{$childCategory->title}}</a></li>
                                             @foreach($childCategory->children as $subCategory)
-                                            <li><a href="category.php">- {{$subCategory->title}}</a></li>
+                                            <li><a href="{{route('client.categories.show',$subCategory)}}">- {{$subCategory->title}}</a></li>
                                             @endforeach
                                         </ul>
-                                            @endforeach
+                                        @endforeach
                                     </ul>
                                 </div>
-                                @endforeach
+                                    @endforeach
 
                                 <!--<div class="col-6 col-sm-4 col-md-3 menu-banner menu-banner2 banner banner-fixed">
                             <figure>
