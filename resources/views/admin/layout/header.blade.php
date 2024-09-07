@@ -64,11 +64,7 @@
             <div class="nav-right col">
                 <ul class="nav-menus">
                     <li>
-                        <!--<form class="form-inline search-form">
-                            <div class="form-group">
-                                <input class="form-control-plaintext" type="search" placeholder="جست و جو..."><span class="d-sm-none mobile-search"><i data-feather="search"></i></span>
-                            </div>
-                        </form>-->
+                        @include('admin.layout.notification')
                     </li>
                     <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
                     <li class="onhover-dropdown"><i data-feather="bell"></i><span id="number_alert" class="badge badge-pill badge-primary pull-right notification-badge">2</span><span class="dot"></span>
@@ -188,24 +184,37 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li><a class="sidebar-header" href="index.php"><i data-feather="home"></i><span>داشبورد</span></a></li>
-                    <li><a class="sidebar-header" href="javascript:void(0)"><i data-feather="box"></i> <span>فروشگاه</span><i class="fa fa-angle-right pull-right"></i></a>
+                    <li><a class="sidebar-header" href="javascript:void(0)"><i data-feather="box"></i> <span>دسته بندی و برند</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{route('categories.index')}}"><i class="fa fa-circle"></i>دسته بندی محصولات</a></li>
                             <li><a href="{{route('categories.create')}}"><i class="fa fa-circle"></i>اضافه کردن دسته بندی جدید</a></li>
-                            <li><a href="{{route('brands.index')}}"><i class="fa fa-circle"></i>برند ها</a></li>
-                            <li><a href="{{route('brands.create')}}"><i class="fa fa-circle"></i>اضافه کردن برند جدید</a></li>
                             <li><a href="{{route('propertyGroups.index')}}"><i class="fa fa-circle"></i>گروه ویژگی ها</a></li>
                             <li><a href="{{route('propertyGroups.create')}}"><i class="fa fa-circle"></i>اضافه کردن گروه ویژگی جدید</a></li>
-                            <li><a href="{{route('products.index')}}"><i class="fa fa-circle"></i>لیست محصولات</a></li>
-                            <li><a href="{{route('products.create')}}"><i class="fa fa-circle"></i>اضافه کردن محصول جدید</a></li>
+                            <li><a href="{{route('featuredCategory.create')}}"><i class="fa fa-circle"></i>انتخاب سته بندی ویژه</a></li>
+                            <li><a href="{{route('brands.index')}}"><i class="fa fa-circle"></i>برند ها</a></li>
+                            <li><a href="{{route('brands.create')}}"><i class="fa fa-circle"></i>اضافه کردن برند جدید</a></li>
                         </ul>
                     </li>
-                    <li><a class="sidebar-header" href="javascript:void(0)"><i data-feather="box"></i> <span>ویژگی محصولات</span><i class="fa fa-angle-right pull-right"></i></a>
+                    <li><a class="sidebar-header" href="javascript:void(0)"><i data-feather="box"></i> <span>محصولات</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
+                            <li><a href="{{route('products.index')}}"><i class="fa fa-circle"></i>لیست محصولات</a></li>
+                            <li><a href="{{route('products.create')}}"><i class="fa fa-circle"></i>اضافه کردن محصول جدید</a></li>
                             <li><a href="{{route('propertyGroups.index')}}"><i class="fa fa-circle"></i>گروه ویژگی ها</a></li>
                             <li><a href="{{route('propertyGroups.create')}}"><i class="fa fa-circle"></i>اضافه کردن گروه ویژگی جدید</a></li>
                             <li><a href="{{route('properties.index')}}"><i class="fa fa-circle"></i>ویژگی ها</a></li>
                             <li><a href="{{route('properties.create')}}"><i class="fa fa-circle"></i>اضافه کردن ویژگی جدید</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="sidebar-header" href=""><i data-feather="tag"></i><span>کد های تخفیف</span><i class="fa fa-angle-right pull-right"></i></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{route('offers.index')}}"><i class="fa fa-circle"></i>لیست کد های تخفیف</a></li>
+                            <li><a href="{{route('offers.create')}}"><i class="fa fa-circle"></i>ایجاد کد تخفیف جدید</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="sidebar-header" href=""><i data-feather="camera"></i><span>اسلایدر</span><i class="fa fa-angle-right pull-right"></i></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{route('sliders.index')}}"><i class="fa fa-circle"></i>لیست اسلایدر ها</a></li>
+                            <li><a href="{{route('sliders.create')}}"><i class="fa fa-circle"></i>ایجاد اسلایدر جدید</a></li>
                         </ul>
                     </li>
                     <li><a class="sidebar-header" href=""><i data-feather="users"></i><span>نقش ها</span><i class="fa fa-angle-right pull-right"></i></a>
@@ -216,10 +225,7 @@
                     </li>
                     <li><a class="sidebar-header" href=""><i data-feather="dollar-sign"></i><span>لیست سفارشات</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="order-list.php"><i class="fa fa-circle"></i>لیست کلیه سفارشات</a></li>
-                            <li><a href="order-list-waiting.php" style="font-size: 13px;"><i class="fa fa-circle"></i> سفارشات در انتظار بررسی <small>(7)</small></a></li>
-                            <li><a href="order-list-wdeliver.php"><i class="fa fa-circle"></i> سفارشات درحال بررسی<small>(3)</small></a></li>
-                            <li><a href="order-list-delivered.php"><i class="fa fa-circle"></i> سفارشات ارسال شده</a></li>
+                            <li><a href="{{route('orders.index')}}"><i class="fa fa-circle"></i>لیست کلیه سفارشات<small>({{count(\App\Models\Order::all())}})</small></a></li>
                         </ul>
                     </li>
                     <li><a class="sidebar-header" href=""><i data-feather="user-plus"></i><span>کاربران</span><i class="fa fa-angle-right pull-right"></i></a>
@@ -227,12 +233,12 @@
                             <li><a href="{{route('users.index')}}"><i class="fa fa-circle"></i>لیست کاربران</a></li>
                         </ul>
                     </li>
-                    <li><a class="sidebar-header" href=""><i data-feather="bar-chart"></i><span>نظرات</span><i class="fa fa-angle-right pull-right"></i></a>
+                    {{--<li><a class="sidebar-header" href=""><i data-feather="clipboard"></i><span>نظرات</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
                             <li><a href="comments-readed.php"><i class="fa fa-circle"></i> نظرات تایید شده</a></li>
                             <li><a href="comments.php"><i class="fa fa-circle"></i>نظرات در انتظار تایید <small>(4)</small></a></li>
                         </ul>
-                    </li>
+                    </li>--}}
                     <li><a class="sidebar-header" href=""><i data-feather="bar-chart"></i><span>سوالات متداول</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
                             <li><a href="#"><i class="fa fa-circle"></i>سوالات متداول</a></li>
@@ -251,6 +257,7 @@
                 </ul>
             </div>
         </div>
+
             <!-- Page Sidebar Ends-->
 
         <!-- Right sidebar Start-->

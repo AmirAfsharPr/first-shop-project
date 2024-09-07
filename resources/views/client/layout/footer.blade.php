@@ -75,16 +75,28 @@
                     </div>
 
                 </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="widget ml-lg-4">
-                        <h4 class="widget-title">دسته بندی محصولات</h4>
-                        <ul class="widget-body">
+                <div class="col-lg-4 col-md-6 ">
+                    <h4 class="widget-title">دسته بندی محصولات</h4>
+                    <div class="widget ml-lg-4 d-flex flex-wrap">
+                        @foreach($categories as $category)
+                            <div class="col-4 pb-2">
+                                <h6 class="widget-title">{{$category->title}}</h6>
+                                <ul class="widget-body">
+                                    @foreach($category->children as $childCategory)
+                                        <li>
+                                            <a href="{{route('client.categories.show',$childCategory)}}">{{$childCategory->title}}</a>
+                                        </li>
+                                        {{--@foreach($childCategory->childern as $subCategory)
+                                            <li>
+                                                <a href="category.php">-</a>
+                                            </li>
+                                        @endforeach--}}
+                                    @endforeach
+                                </ul>
+                            </div>
 
-                            <li>
-                                <a href="category.php">-</a>
-                            </li>
+                        @endforeach
 
-                        </ul>
                     </div>
 
                 </div>
@@ -126,6 +138,8 @@
 <script src="/client/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
 <script src="/client/vendor/elevatezoom/jquery.elevatezoom.min.js"></script>
 <script src="/client/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="/client/vendor/isotope/isotope.pkgd.min.js"></script>
+<script src="/client/vendor/jquery.plugin/jquery.plugin.min.js"></script>
 <script src="/client/vendor/owl-carousel/owl.carousel.min.js"></script>
 <!--<script src="js/sweetalert2@11.js"></script>-->
 <script src="/client/js/sweetalert2.min.js"></script>
@@ -168,6 +182,82 @@
 
                 $('#likes_count').text(data.likes_count)
             }
+        })
+
+    }
+    function addToCart(productId){
+
+        var quantity = 1;
+
+        if($('#input-quantity').length){
+            quantity = $('#input-quantity').val();
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/cart/" + productId,
+            data:{
+                _token: "{{csrf_token()}}",
+                quantity: quantity
+            },
+
+            success: function (data){
+
+                $('.cart-count').text(data.cart.total_items)
+                $('.cart-price').text(data.cart.total_amount)
+
+                var cartItem = $('#cart-row-' + productId );
+
+                if(cartItem.length === 0){
+
+                    var product = data.cart[productId]['product'];
+                    var productQty = data.cart[productId]['quantity'];
+
+                    $('#mini-cart-body').append(
+                        '<div class="product product-cart" id="cart-row-' + productId + ' ">'
+                        + ' <figure class="product-media"> <a href="/products/ ' + productId + '">'
+                        + ' <img src="' + product.image_path + '" alt="product" width="80" height="88" /> </a> '
+                        + '<button class="btn btn-link btn-close" onclick="removeFromCart(' + productId + ')"> '
+                        + '<i class="fas fa-times"></i><span class="sr-only">بستن</span> </button>'
+                        + ' </figure> '
+                        + '<div class="product-detail"> '
+                        + '<a href="/products/' + productId + '" class="product-name">' + product.name + '</a> '
+                        + '<div class="price-box">'
+                        + ' <span id="product-quantity" class="product-quantity">' + productQty + '</span> '
+                        + '<span class="product-price">' + product.cost_with_discount +' تومان</span> '
+                        + '</div>'
+                        + '</div>'
+                        + '</div>'
+                    );
+
+                }else{
+                    var productQty = data.cart[productId]['quantity'];
+                    $('#cart-row-' + productId + ' #product-quantity').text(productQty);
+                }
+
+            }
+
+
+        })
+    }
+    function removeFromCart(productId){
+
+        $.ajax({
+            type: "delete",
+            url: "/cart/" + productId,
+            data:{
+                _token: "{{csrf_token()}}",
+            },
+
+            success: function (data){
+
+                $('.cart-count').text(data.cart.total_items)
+                $('.cart-price').text(data.cart.total_amount)
+                $('div#cart-row-' + productId).remove()
+                $('tr#cart-tr-' + productId).remove()
+            }
+
+
         })
     }
 </script>

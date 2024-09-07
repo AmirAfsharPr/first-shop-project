@@ -36,6 +36,7 @@
                             <h5>دسته بندی محصولات</h5>
                             @include('admin.layout.errors')
 
+
                         </div>
                         <div class="card-body">
                             <div class="btn-popup ">

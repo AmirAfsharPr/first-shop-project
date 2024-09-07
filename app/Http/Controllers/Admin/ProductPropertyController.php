@@ -36,6 +36,6 @@ class ProductPropertyController extends Controller
 
         $product->properties()->sync($properties);
 
-        return redirect()->back();
+        return redirect(route('products.properties.index',$product));
     }
 }

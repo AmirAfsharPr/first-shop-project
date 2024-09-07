@@ -31,7 +31,9 @@
     <link rel="stylesheet" type="text/css" href="/client/vendor/owl-carousel/owl.carousel.min.css">
     <link rel="stylesheet" type="text/css" href="/client/vendor/sticky-icon/stickyicon.css">
     <link rel="stylesheet" type="text/css" href="/client/rtl/css/css-rtl.css">
+    <link rel="stylesheet" type="text/css" href="/client/rtl/css/style.min-rtl.css">
     <link rel="stylesheet" type="text/css" href="/client/css/borderless.css">
+
 
     <link rel="stylesheet" type="text/css" href="/client/rtl/css/demo1-rtl.min.css">
     <style>
@@ -50,6 +52,11 @@
             z-index: 1;
 
         }
+         .like {
+             border-color: #26c;
+             color: #fff;
+             background-color: #26c;
+         }
     </style>
     @yield('links')
 </head>
@@ -126,7 +133,10 @@
 
                         <a href="#" class="wishlist-toggle">
                             <i class="d-icon-heart"></i>
-                            <span id="likes_count" class="likes_count">{{auth()->user()->likes()->count()}}</span>
+                            @auth
+                                <span id="likes_count" class="likes_count">{{auth()->user()->likes()->count()}}</span>
+                            @endauth
+
 
                         </a>
                         <div class="canvas-overlay"></div>
@@ -187,9 +197,9 @@
                         <a href="#" class="cart-toggle label-block link">
                             <div class="cart-label d-lg-show">
                                 <span class="cart-name">سبد خرید:</span>
-                                <span class="cart-price">0 تومان</span>
+                                <span id="cart-price" class="cart-price">{{\App\Models\Cart::totalAmount()}} تومان</span>
                             </div>
-                            <i class="d-icon-bag"><span class="cart-count">0</span></i>
+                            <i class="d-icon-bag"><span id="cart-count" class="cart-count">{{\App\Models\Cart::totalItems()}}</span></i>
                         </a>
 
                         <div class="canvas-overlay"></div>
@@ -205,59 +215,44 @@
                                 <a href="#" class="btn btn-dark btn-link btn-icon-right btn-close">بستن<i class="d-icon-arrow-left"></i><span class="sr-only">سبد خرید</span></a>
                             </div>
                             @auth
-                            <div class="products scrollable">
-                                <div class="product product-cart">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/client/images/cart/product-1.jpg" alt="product" width="80" height="88" />
-                                        </a>
-                                        <button class="btn btn-link btn-close">
-                                            <i class="fas fa-times"></i><span class="sr-only">بستن</span>
-                                        </button>
-                                    </figure>
-                                    <div class="product-detail">
-                                        <a href="product.html" class="product-name">کتونی سفید</a>
-                                        <div class="price-box">
-                                            <span class="product-quantity">1</span>
-                                            <span class="product-price">200000 تومان</span>
+                            <div id="mini-cart-body" class="products scrollable">
+                                @foreach(\App\Models\Cart::getItems() as $item)
+                                    @php
+                                    $product = $item['product'];
+                                    $productQty = $item['quantity'];
+                                    @endphp
+                                    <div class="product product-cart" id="cart-row-{{$product->id}}">
+                                        <figure class="product-media">
+                                            <a href="{{route('client.products.show',$product)}}">
+                                                <img src="{{$product->image_path}}" alt="product" width="80" height="88" />
+                                            </a>
+                                            <button class="btn btn-link btn-close" onclick="removeFromCart({{$product->id}})">
+                                                <i class="fas fa-times"></i><span class="sr-only">بستن</span>
+                                            </button>
+                                        </figure>
+                                        <div class="product-detail">
+                                            <a href="{{route('client.products.show',$product)}}" class="product-name">{{$product->name}}</a>
+                                            <div class="price-box">
+                                                <span id="product-quantity" class="product-quantity">{{$productQty}}</span>
+                                                <span class="product-price">{{number_format($product->cost_with_discount)}} تومان</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
 
-                                <div class="product product-cart">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/client/images/cart/product-2.jpg" alt="product" width="80" height="88" />
-                                        </a>
-                                        <button class="btn btn-link btn-close">
-                                            <i class="fas fa-times"></i><span class="sr-only">بستن</span>
-                                        </button>
-                                    </figure>
-                                    <div class="product-detail">
-                                        <a href="product.html" class="product-name">کلاه آفتابی مشکی زنانه</a>
-                                        <div class="price-box">
-                                            <span class="product-quantity">1</span>
-                                            <span class="product-price">87000 تومان</span>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
 
                             <div class="cart-total">
                                 <label>مجموع سبد خرید:</label>
-                                <span class="price">287000 تومان</span>
+                                <span class="price cart-price">{{number_format(\App\Models\Cart::totalAmount())}} تومان</span>
                             </div>
 
                             <div class="cart-action">
-                                <a href="cart.html" class="btn btn-dark btn-link">مشاهده</a>
-                                <a href="checkout.html" class="btn btn-dark"><span>نهایی کردن خرید</span></a>
+                                <a href="{{route('client.cart.index')}}" class="btn btn-dark btn-link">مشاهده</a>
+                                <a href="{{route('client.orders.create')}}" class="btn btn-dark"><span>نهایی کردن خرید</span></a>
                             </div>
 
-                            <div class="col-12 p-4 text-center height-x3 mt-5 mb-5">محصولی برای نمایش وچود ندارد</div>
-                            <div class="cart-action">
-                                <a href="shop.php" class="btn btn-dark"><span>برو به فروشگاه</span></a>
-                            </div>
 
                             @else
                                 <div class="col-12 p-4 text-center height-x3 mt-5 mb-5">برای مشاهده سبد خرید لطفا ابتدا وارد شوید</div>

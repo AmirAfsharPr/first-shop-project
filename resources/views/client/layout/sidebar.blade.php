@@ -10,17 +10,17 @@
                 <ul class="widget-body filter-items search-ul">
                     @foreach($categories as $category)
                         <li>
-                            <a href="#" >{{$category->title}}</a>
+                            <a >{{$category->title}}</a>
                             <ul>
                                     @foreach($category->children as $childCategory)
                                 <li>
-                                    <a href="#" class="d-inline-block ">{{$childCategory->title}}</a>
-                                    <span>(2)</span>
+                                    <a href="{{route('client.categories.show',$childCategory)}}" class="d-inline-block ">{{$childCategory->title}}</a>
+                                    <span>({{count($childCategory->products)}})</span>
                                 </li>
                                     @foreach($childCategory->children as $subCategory)
                                     <li>
-                                    <a href="#" class="d-inline-block ">-{{$subCategory->title}}</a>
-                                    <span>(5)</span>
+                                    <a href="{{route('client.categories.show',$subCategory)}}" class="d-inline-block ">-{{$subCategory->title}}</a>
+                                    <span>({{count($subCategory->products)}})</span>
                                     </li>
                                     @endforeach
                                 @endforeach

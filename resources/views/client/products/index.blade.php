@@ -3,13 +3,6 @@
 @section('links')
     <link rel="stylesheet" type="text/css" href="/client/rtl/css/style.min-rtl.css">
     <link rel="stylesheet" type="text/css" href="/client/rtl/css/css-rtl.css">
-    <style>
-        .like {
-            border-color: #26c;
-            color: #fff;
-            background-color: #26c;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -72,7 +65,7 @@
                                 <div class="product">
                                     <figure class="product-media">
                                         <a href="{{route('client.products.show', $product)}}">
-                                            <img src="{{str_replace('public', '/storage', $product->image)}}" alt="product" width="280" height="315">
+                                            <img src="{{$product->image_path}}" alt="product" width="280" height="315">
                                         </a>
                                         @if($product->has_discount)
                                             <div class="product-label-group">
@@ -80,7 +73,7 @@
                                             </div>
                                         @endif
                                         <div class="product-action-vertical">
-                                            {{--<a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart"><i class="d-icon-bag"></i></a>--}}
+                                            <button class="btn-product-icon btn-cart" onclick="addToCart({{$product->id}});" title="افزودن به سبد خرید"><i class="d-icon-bag"></i></button>
                                             <a id="like-{{$product->id}}" class="btn-product-icon btn-wishlist @if($product->is_liked) like @endif debug" title=" افزودن به مورد علاقه ها" onclick="like({{$product->id}})"><i class="d-icon-heart"></i></a>
                                         </div>
 
@@ -135,7 +128,7 @@
                                                 <span class="ratings" style="width:100%"></span>
                                                 <span class="tooltiptext tooltip-top"></span>
                                             </div>
-                                            <a href="#" class="rating-reviews">( 6 reviews )</a>
+                                            <a href="#" class="rating-reviews">( {{$product->comments->count()}} reviews )</a>
                                         </div>
                                     </div>
                                 </div>

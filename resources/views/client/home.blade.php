@@ -15,6 +15,25 @@
                         'autoplay': false,
                         'autoplayTimeout': 8000
                     }">
+                    @foreach($sliders as $slider)
+                        <div class="banner banner-fixed video-banner intro-slide3" style="background-color: #dddee0;">
+                            <figure>
+                                <img src="{{str_replace('public','/storage',$slider->image)}}" alt="intro-banner" width="1903" height="630" style="background-color: #d8d9d9;" />
+                            </figure>
+                            <div class="container">
+                                <div class="banner-content x-50 y-50 text-center">
+                                    <h4 class="banner-subtitle text-white text-uppercase mb-3 ls-normal slide-animate" data-animation-options="{'name': 'fadeIn', 'duration': '.7s'}">
+                                        {{$slider->subtitle}}</h4>
+                                    <h2 class="banner-title mb-3 text-white font-weight-bold text-uppercase ls-m slide-animate" data-animation-options="{'name': 'fadeInUp', 'duration': '.7s', 'delay': '.5s'}">
+                                        {{$slider->title}}</h2>
+                                    <p class="slide-animate mb-7 text-white ls-s font-primary " data-animation-options="{'name': 'fadeInUp', 'duration': '1s', 'delay': '.8s'}">
+                                        {{$slider->text}}</p>
+                                    <a href="{{$slider->link}}" class="btn btn-dark btn-rounded slide-animate mb-1" data-animation-options="{'name': 'fadeInLeft', 'duration': '1s', 'delay': '1.5s'}">
+                                        <i class="d-icon-arrow-left"></i>همین الان خرید کنید</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                     <div class="banner banner-fixed intro-slide1" style="background-color: #46b2e8;">
                         <figure>
                             <img src="/client/images/demos/demo1/slides/slide1.jpg" alt="intro-banner" width="1903" height="630" style="background-color: #34ace5;" />
@@ -52,24 +71,8 @@
                             </div>
                         </div>
                     </div>
-                   {{-- <div class="banner banner-fixed video-banner intro-slide3" style="background-color: #dddee0;">
-                        <figure>
-                            <video src="video/memory-of-a-woman.mp4" width="1903" height="630"></video>
-                        </figure>
-                        <div class="container">
-                            <div class="banner-content x-50 y-50 text-center">
-                                <h4 class="banner-subtitle text-white text-uppercase mb-3 ls-normal slide-animate" data-animation-options="{'name': 'fadeIn', 'duration': '.7s'}">Check out our
-                                </h4>
-                                <h2 class="banner-title mb-3 text-white font-weight-bold text-uppercase ls-m slide-animate" data-animation-options="{'name': 'fadeInUp', 'duration': '.7s', 'delay': '.5s'}">
-                                    Summer Season's</h2>
-                                <p class="slide-animate mb-7 text-white ls-s font-primary " data-animation-options="{'name': 'fadeInUp', 'duration': '1s', 'delay': '.8s'}">
-                                    Up to 50% Off this Season’s &amp; Get free shipping<br/>on all orders over
-                                    $199.00</p>
-                                <a href="shop.html" class="btn btn-dark btn-rounded slide-animate mb-1" data-animation-options="{'name': 'fadeInLeft', 'duration': '1s', 'delay': '1.5s'}">Shop
-                                    Now<i class="d-icon-arrow-left"></i></a>
-                            </div>
-                        </div>
-                    </div>--}}
+
+
                 </div>
                 <div dir="ltr" class="container mt-6 appear-animate">
                     <div class="service-list">
@@ -489,203 +492,84 @@
             </section>
             <section class="product-wrapper mt-6 mt-md-10 pt-4 mb-10 pb-2 container appear-animate" data-animation-options="{
                     'delay': '.6s'
+                }" style="animation-duration: 1.2s;">
+                <div class="container mt-7 mb-4">
+                    <h2 class="title title-center mb-2">دسته بندی ویژه</h2>
+                    <div class="title-wrapper d-flex justify-content-between flex-wrap pt-6 appear-animate" data-animation-options="{'name': 'fadeIn'}">
+                        <h2 class="title d-block text-left mr-4">{{$featuredCategory->title}}</h2>
+                        <div class="tab tab-nav-boxed">
+                            <ul class="nav nav-tabs border-no">
+                                @foreach($featuredCategory->children as $subCategory)
+                                    <li class="nav-item">
+                                        <a href="#tab-{{$subCategory->id}}" class="nav-link active">{{$subCategory->title}}</a>
+                                    </li>
+                                @endforeach
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content appear-animate" data-animation-options="{'name': 'fadeIn'}">
+                        @foreach($featuredCategory->children as $subCategory)
+                            <div class="tab-pane active" id="tab-{{$subCategory->id}}">
+                                <div class="owl-carousel owl-theme row cols-xl-5 cols-lg-4 cols-md-3 cols-2" data-owl-options="{
+                    'nav': false,
+                    'dots': true,
+                    'margin': 20,
+                    'responsive': {
+'0': {
+    'items': 2
+},
+'576': {
+    'items': 2
+},
+'768': {
+    'items': 3
+},
+'992': {
+    'items': 4
+},
+'1200': {
+    'items': 5
+}
+                    }
                 }">
-                <h2 class="title title-center">محبوب ترین ها</h2>
+                                    @foreach($subCategory->products as $product)
+                                        <div class="product-wrap">
+                                            <div class="product product-border text-center">
+                                                <figure class="product-media">
+                                                    <a href="{{route('client.products.show',$product)}}">
+                                                        <img src="{{str_replace('public','/storage',$product->image)}}" alt="{{$product->name}}" width="260" height="293">
+                                                        <img src="{{str_replace('public','/storage',$product->image)}}" alt="{{$product->name}}" width="260" height="293">
+                                                    </a>
+                                                    <div class="product-action-vertical">
+                                                        <a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart"><i class="d-icon-bag"></i></a>
+                                                        <a id="like-{{$product->id}}" class="btn-product-icon btn-wishlist @if($product->is_liked) like @endif debug" title=" افزودن به مورد علاقه ها" onclick="like({{$product->id}})"><i class="d-icon-heart"></i></a>
+                                                    </div>
+                                                </figure>
+                                                <div class="product-details">
+                                                    <h3 class="product-name">
+                                                        <a href="{{route('client.products.show',$product)}}">{{$product->name}}</a>
+                                                    </h3>
+                                                    <div class="product-price">
+                                                        <span class="price">{{number_format($product->cost_with_discount)}}</span>
+                                                    </div>
+                                                    <div class="ratings-container">
+                                                        <div class="ratings-full">
+                                                            <span class="ratings" style="width:40%"></span>
+                                                            <span class="tooltiptext tooltip-top"></span>
+                                                        </div>
+                                                        <a href="product.html" class="rating-reviews">( {{$product->comments->count()}} reviews
+                                                            )</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
 
-                <div dir="ltr" class="owl-carousel owl-theme row cols-2 cols-md-3 cols-lg-4 cols-xl-5" data-owl-options="{
-                        'items': 5,
-                        'nav': false,
-                        'loop': false,
-                        'dots': true,
-                        'margin': 20,
-                        'responsive': {
-                            '0': {
-                                'items': 2
-                            },
-                            '768': {
-                                'items': 3
-                            },
-                            '992': {
-                                'items': 4
-                            },
-                            '1200': {
-                                'items': 5,
-                                'dots': false,
-                                'nav': true
-                            }
-                        }
-                    }">
-
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product.html">
-                                <img src="/client/images/demos/demo1/products/product5.jpg" alt="Blue Pinafore Denim Dress" width="220" height="245" style="background-color: #f2f3f5;" />
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart"><i class="d-icon-bag"></i></a>
-                                <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"><i class="d-icon-heart"></i></a>
-                            </div>
-                            <div class="product-action">
-                                <a href="#" class="btn-product btn-quickview" title="Quick View">Quick View</a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <div class="product-cat">
-                                <a href="shop-grid-3cols.html">Watches</a>
-                            </div>
-                            <h3 class="product-name">
-                                <a href="product.html">Fashion Electric Wrist Watch</a>
-                            </h3>
-                            <div class="product-price">
-                                <span class="price">$270.99</span>
-                            </div>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width:40%"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
                                 </div>
-                                <a href="product.html" class="rating-reviews">( 15 reviews )</a>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product.html">
-                                <img src="/client/images/demos/demo1/products/product6.jpg" alt="Blue Pinafore Denim Dress" width="220" height="245" style="background-color: #f2f3f5;" />
-                            </a>
-                            <div class="product-label-group">
-                                <label class="product-label label-new">New</label>
-                            </div>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart"><i class="d-icon-bag"></i></a>
-                                <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"><i class="d-icon-heart"></i></a>
-                            </div>
-                            <div class="product-action">
-                                <a href="#" class="btn-product btn-quickview" title="Quick View">Quick View</a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <div class="product-cat">
-                                <a href="shop-grid-3cols.html">Women</a>
-                            </div>
-                            <h3 class="product-name">
-                                <a href="product.html">Hempen Hood a Mourner</a>
-                            </h3>
-                            <div class="product-price">
-                                <span class="price">$12.83</span>
-                            </div>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width:20%"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product.html" class="rating-reviews">( 3 reviews )</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product.html">
-                                <img src="/client/images/demos/demo1/products/product7.jpg" alt="Blue Pinafore Denim Dress" width="220" height="245" style="background-color: #f2f3f5;" />
-                            </a>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart"><i class="d-icon-bag"></i></a>
-                                <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"><i class="d-icon-heart"></i></a>
-                            </div>
-                            <div class="product-action">
-                                <a href="#" class="btn-product btn-quickview" title="Quick View">Quick View</a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <div class="product-cat">
-                                <a href="shop-grid-3cols.html">Women</a>
-                            </div>
-                            <h3 class="product-name">
-                                <a href="product.html">Women Beautiful Headgear</a>
-                            </h3>
-                            <div class="product-price">
-                                <span class="price">$78.24</span>
-                            </div>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width:40%"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product.html" class="rating-reviews">( 8 reviews )</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product.html">
-                                <img src="/client/images/demos/demo1/products/product8.jpg" alt="Blue Pinafore Denim Dress" width="220" height="245" style="background-color: #f2f3f5;" />
-                            </a>
-                            <div class="product-label-group">
-                                <span class="product-label label-new">New</span>
-                            </div>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart"><i class="d-icon-bag"></i></a>
-                                <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"><i class="d-icon-heart"></i></a>
-                            </div>
-                            <div class="product-action">
-                                <a href="#" class="btn-product btn-quickview" title="Quick View">Quick View</a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <div class="product-cat">
-                                <a href="shop-grid-3cols.html">Shoes</a>
-                            </div>
-                            <h3 class="product-name">
-                                <a href="product.html">Converse Training Shoes</a>
-                            </h3>
-                            <div class="product-price">
-                                <span class="price">$113.00</span>
-                            </div>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width:80%"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product.html" class="rating-reviews">( 11 reviews )</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product text-center">
-                        <figure class="product-media">
-                            <a href="product.html">
-                                <img src="/client/images/demos/demo1/products/product9.jpg" alt="Blue Pinafore Denim Dress" width="220" height="245" style="background-color: #f2f3f5;" />
-                            </a>
-                            <div class="product-label-group">
-                                <span class="product-label label-sale">27% Off</span>
-                            </div>
-                            <div class="product-action-vertical">
-                                <a href="#" class="btn-product-icon btn-cart" data-toggle="modal" data-target="#addCartModal" title="Add to cart"><i class="d-icon-bag"></i></a>
-                                <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"><i class="d-icon-heart"></i></a>
-                            </div>
-                            <div class="product-action">
-                                <a href="#" class="btn-product btn-quickview" title="Quick View">Quick View</a>
-                            </div>
-                        </figure>
-                        <div class="product-details">
-                            <div class="product-cat">
-                                <a href="shop-grid-3cols.html">Bags & Backpacks</a>
-                            </div>
-                            <h3 class="product-name">
-                                <a href="product.html">Women's Fashion Handbag</a>
-                            </h3>
-                            <div class="product-price">
-                                <ins class="new-price">$53.99</ins><del class="old-price">$67.99</del>
-                            </div>
-                            <div class="ratings-container">
-                                <div class="ratings-full">
-                                    <span class="ratings" style="width:60%"></span>
-                                    <span class="tooltiptext tooltip-top"></span>
-                                </div>
-                                <a href="product.html" class="rating-reviews">( 16 reviews )</a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </section>
             <section class="banner banner-background parallax text-center" data-option="{'offset': -60}" data-image-src="/client/images/demos/demo1/parallax.jpg" style="background-color: #2d2f33;">

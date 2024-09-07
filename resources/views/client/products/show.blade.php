@@ -147,6 +147,18 @@
                                     </div>
                                 </div>
                             </form>--}}
+                            <hr class="product-divider">
+                            <div class="product-form product-qty">
+                                <div class="product-form-group">
+                                    <div class="input-group mr-2">
+                                        <button class="quantity-minus d-icon-minus" type="button"></button>
+                                        <input id="input-quantity" class="quantity form-control" type="number" name="quantity" min="1" max="1000000">
+                                        <button class="quantity-plus d-icon-plus" type="button"></button>
+                                    </div>
+                                    <button id="button-cart" onclick="addToCart({{$product->id}});" class="btn-product text-normal ls-normal font-weight-semi-bold" type="button">اضافه کردن به سبد خرید<i class="d-icon-bag pr-1"></i></button>
+                                </div>
+                            </div>
+
                             <hr class="product-divider mb-3">
                             <div class="product-footer">
                                 <div class="social-links mr-4">

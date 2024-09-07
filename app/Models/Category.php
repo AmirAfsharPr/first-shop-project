@@ -21,6 +21,18 @@ class Category extends Model
         return $this->hasMany(Category::class, 'category_id');
     }
 
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
+
+    public function hasProduct()
+    {
+        return $this->products()->exists();
+    }
+
+
+
     public function propertyGroups()
     {
         return $this->belongsToMany(PropertyGroup::class, 'category_property_group', 'category_id', 'property_group_id');
